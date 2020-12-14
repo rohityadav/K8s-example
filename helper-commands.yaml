@@ -1,0 +1,5 @@
+kubectl run -i --tty busybox --image=busybox --restart=Never --rm -- sh
+
+wget -O-
+
+kubectl scale --replicas=6 -f replica-set.yaml
