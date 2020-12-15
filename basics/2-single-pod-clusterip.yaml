@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:           # Metadata: here we can define data about the object we are about to create.
+  name: nginx-single-clusterip-example-pod
+  labels:
+    app: nginx-single-clusterip-example-pod 
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-single-pod-clusterip-service
+spec:
+  type: ClusterIP
+  ports:
+  - targetPort: 80
+    port: 80
+  selector:
+    app: nginx-single-clusterip-example-pod

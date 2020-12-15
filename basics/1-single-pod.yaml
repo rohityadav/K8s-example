@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:           # Metadata: here we can define data about the object we are about to create.
-  name: webserver
+  name: nginx-single-pod
+  labels:
+    app: nginx-single-pod  
 spec:
   containers:
-  - name: webserver
+  - name: nginx-container
     image: nginx:latest
     ports:
     - containerPort: 80
