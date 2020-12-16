@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-nodeport-deployment
+  namespace: dev
+  labels:
+    app: nginx-nodeport-deployment
+spec:
+ template:
+    metadata:
+      name: nginx-nodeport-pod
+      labels:
+        app: nginx-nodeport-pod
+    spec:
+     containers:
+     - name: nginx-container
+       image: nginx
+ replicas: 3
+ selector:
+   matchLabels:
+    app: nginx-nodeport-pod
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-deployment-service
+spec:
+  type: NodePort
+  ports:
+  - targetPort: 80
+    port: 80
+  selector:
+    app: nginx-nodeport-pod

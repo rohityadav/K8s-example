@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-clusterip-deployment
+  labels:
+    app: nginx-clusterip-deployment
+spec:
+ template:
+    metadata:
+      name: nginx-clusterip-pod
+      labels:
+        app: nginx-clusterip-pod
+    spec:
+     containers:
+     - name: nginx-container
+       image: nginx
+ replicas: 3
+ selector:
+   matchLabels:
+    app: nginx-clusterip-pod
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-clusterip-deployment-service
+spec:
+  type: ClusterIP
+  ports:
+  - targetPort: 80
+    port: 80
+  selector:
+    app: nginx-clusterip-pod
