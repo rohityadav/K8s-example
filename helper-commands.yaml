@@ -3,3 +3,14 @@ kubectl run -i --tty busybox --image=busybox --restart=Never --rm -- sh
 wget -O-
 
 kubectl scale --replicas=6 -f replica-set.yaml
+
+#kubectl taint nodes node1 app=blue:NoSchedule
+#kubectl taint nodes node1 app=blue:NoSchedule-
+
+#kc label node <> size=large
+
+kubectl get clusterrolebindings -o json | jq -r '.items[] | select(.subjects[0].kind=="Group") | select(.subjects[0].name=="system:masters") | .metadata.name'
+curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+
+TOKEN=$(kubectl get secret $(kubectl get serviceaccount <> -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
+TOKEN=`aws eks get-token --cluster-name <> | jq -r '.status.token'`

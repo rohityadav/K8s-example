@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: nginx
+ labels:
+  name: nginx
+spec:
+ containers:
+ - name: nginx
+   image: nginx
+   ports:
+   - containerPort: 8080
+ nodeName: ip-192-168-30-76.ec2.internal
